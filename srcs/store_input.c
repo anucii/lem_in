@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 19:04:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/03 20:35:20 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/03 21:35:27 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static t_list	*clear_input(t_list **ptr)
 	if (!(ptr && *ptr))
 		ft_error(PARSING, "Invalid clearing request of void input", 1);
 	ft_lstdel(ptr, &ft_linkdel);
+	ft_memdel((void **)ptr);
 	return (ptr && *ptr ? *ptr : NULL);
 }
 

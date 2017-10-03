@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 20:28:28 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/03 20:05:28 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/03 21:17:20 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void		ft_error(t_err errtype, char *msg, _Bool stop)
 				break;
 			}
 		}
-		if (err_array[++i].errtype == NOERR)
-			ft_putendl_fd(msg ? msg : "Unknown error", 2);
+		if (err_array[i].errtype == NOERR)
+			ft_putendl_fd(msg && *msg ? msg : "Unknown error", 2);
 	}
 	if (stop)
 		exit(EXIT_FAILURE);
