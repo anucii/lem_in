@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/09/30 21:25:43 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/03 20:06:40 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 
 # include "libft.h"
 # include "libftprintf.h"
+# include <stdio.h>
 
 typedef enum	e_err
 {
-	NONE = -1, SYSTEM, PARSING
+	NOERR = -1, SYSTEM, PARSING
 }				t_err;
 
 typedef struct	s_errctrl
@@ -34,12 +35,12 @@ typedef struct	s_options
 
 typedef	enum	e_flag
 {
-	NONE = -1, START, STD, END
+	NOFLG = -1, START, STD, END
 }				t_flag;
 
 typedef enum	e_cmd
 {
-	NONE = -1, INIT, EDIT, READ, CLEAR
+	NOCMD = -1, INIT, EDIT, READ, CLEAR
 }				t_cmd;
 
 typedef struct	s_room
@@ -72,9 +73,10 @@ typedef struct	s_statement
 typedef struct	s_strcmd
 {
 	t_cmd		cmd;
-	t_list		*(*func)(t_list *);
+	t_list		*(*func)(t_list **);
 }				t_strcmd;
 
+t_options		*ft_options(char *pattern);
 void			ft_error(t_err errtype, char *msg, _Bool stop);
 void			get_input(void);
 t_list			*store_input(t_cmd cmd);
