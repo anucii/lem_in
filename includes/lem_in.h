@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "libftprintf.h"
 # include <stdio.h>
+# define MAX_LINES 500000
 
 typedef enum	e_err
 {

@@ -16,19 +16,24 @@ static t_list	*init_input(t_list **ptr)
 {
 	int		gnl;
 	char	*line;
+	ssize_t	lim;
 
 	if (!(ptr))
 		ft_error(SYSTEM, "Input acquisition failure due to malloc error", 1);
-	*ptr = NULL; 
-	while ((gnl = get_next_line(0, &line)) > 0)
+	*ptr = NULL;
+	lim = -1;	
+	while ((++lim < MAX_LINES) && ((gnl = get_next_line(0, &line)) > 0))
 	{
 		if (*ptr)
 			ft_lstappend(ptr, ft_lstnew((void *)line, ft_strlen(line) + 1));
 		else
 			*ptr = ft_lstnew((void *)line, ft_strlen(line) + 1);
+		ft_memdel((void **)&line);
 	}
 	if (gnl == -1)
 		ft_error(SYSTEM, "STDIN acquisition error", 0);
+	if (lim == MAX_LINES)
+		ft_error(PARSING, "STDIN reached lines number limit", 0);
 	return (*ptr); 
 	/* Shouldn't the returning of ptr be reserved to read_input ?
 	 */
