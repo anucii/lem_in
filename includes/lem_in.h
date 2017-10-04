@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/04 12:58:05 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/04 13:03:14 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "libft.h"
 # include "libftprintf.h"
 # include <stdio.h>
-# define MAX_LINES 500000
 
 typedef enum	e_err
 {
