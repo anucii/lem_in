@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 20:28:28 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/03 21:17:20 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/04 14:46:17 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	err_parsing(char *msg)
 
 void		ft_error(t_err errtype, char *msg, _Bool stop)
 {
-	static const t_errctrl	err_array[3] = (const t_errctrl[]){{SYSTEM, &err_sys},\
-		{PARSING,&err_parsing}, {NOERR, NULL}};
+	static const t_errctrl	err_array[3] = (const t_errctrl[]){{SYSTEM,\
+		&err_sys}, {PARSING,&err_parsing}, {NOERR, NULL}};
 	t_options				*options;
 	ssize_t					i;
 
@@ -39,7 +39,7 @@ void		ft_error(t_err errtype, char *msg, _Bool stop)
 			if (err_array[i].errtype == errtype)
 			{
 				(err_array[i].func)(msg);
-				break;
+				break ;
 			}
 		}
 		if (err_array[i].errtype == NOERR)

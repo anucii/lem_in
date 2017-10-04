@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 19:04:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/04 14:28:06 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/04 14:53:26 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,24 @@ static t_list	*init_input(t_list **ptr)
 {
 	int		gnl;
 	char	*line;
-	_Bool	check;
+	_Bool	check[2];
 
 	if (!(ptr))
 		ft_error(SYSTEM, "Input acquisition failure due to malloc error", 1);
 	*ptr = NULL;
-	check = 1;
-	while (check && ((gnl = get_next_line(0, &line)) > 0))
+	check[0] = 1;
+	check[1] = 0;
+	while (check[0] && ((gnl = get_next_line(0, &line)) > 0))
 	{
 		if (*ptr)
 			ft_lstappend(ptr, ft_lstnew((void *)line, ft_strlen(line) + 1));
 		else
 			*ptr = ft_lstnew((void *)line, ft_strlen(line) + 1);
 		ft_memdel((void **)&line);
-		check = ft_parse_input(ptr);
+		check[0] = ft_parse_input(check[1] ? NULL : ptr);
+		check[1] = 1;
 	}
-	if (!check)
+	if (!check[0])
 		ft_error(PARSING, "Warning : file syntax error", 0);
 	if (gnl == -1)
 		ft_error(SYSTEM, "STDIN acquisition error", 0);
