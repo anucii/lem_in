@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/04 13:03:14 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/04 14:38:54 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "libftprintf.h"
 # include <stdio.h>
+# include <limits.h>
 
 typedef enum	e_err
 {
@@ -80,6 +81,7 @@ t_options		*ft_options(char *pattern);
 void			ft_error(t_err errtype, char *msg, _Bool stop);
 void			get_input(void);
 t_list			*store_input(t_cmd cmd);
+_Bool			ft_parse_input(t_list **alst);
 t_list			*ft_antlist(t_cmd cmd, ssize_t i);
 t_list			*ft_roomlist(t_cmd cmd, char *key);
 

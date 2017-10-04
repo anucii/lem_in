@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 19:04:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/04 13:03:28 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/04 14:28:06 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,26 @@ static t_list	*init_input(t_list **ptr)
 {
 	int		gnl;
 	char	*line;
+	_Bool	check;
 
 	if (!(ptr))
 		ft_error(SYSTEM, "Input acquisition failure due to malloc error", 1);
 	*ptr = NULL;
-	lim = -1;	
-	while ((gnl = get_next_line(0, &line)) > 0)
+	check = 1;
+	while (check && ((gnl = get_next_line(0, &line)) > 0))
 	{
 		if (*ptr)
 			ft_lstappend(ptr, ft_lstnew((void *)line, ft_strlen(line) + 1));
 		else
 			*ptr = ft_lstnew((void *)line, ft_strlen(line) + 1);
 		ft_memdel((void **)&line);
+		check = ft_parse_input(ptr);
 	}
+	if (!check)
+		ft_error(PARSING, "Warning : file syntax error", 0);
 	if (gnl == -1)
 		ft_error(SYSTEM, "STDIN acquisition error", 0);
-	return (*ptr); 
+	return (*ptr);
 	/* Shouldn't the returning of ptr be reserved to read_input ?
 	 */
 }

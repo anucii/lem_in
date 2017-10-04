@@ -6,7 +6,7 @@
 #    By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/29 20:04:31 by jdaufin           #+#    #+#              #
-#    Updated: 2017/10/04 12:36:14 by jdaufin          ###   ########.fr        #
+#    Updated: 2017/10/04 14:28:55 by jdaufin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ TEST_SRC = $(addprefix $(TEST_DIR), $(addsuffix .c, $(TEST)))
 TEST_OBJ = $(patsubst %.c, %.o, $(TEST_SRC))
 
 #RDX = ft_antlist ft_error ft_options get_input store_input
-RDX = get_input store_input ft_options ft_error
+RDX = get_input store_input ft_options ft_error ft_parse_input
 SRC_DIR = srcs/
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(RDX)))
 OBJ_DIR = builts/
