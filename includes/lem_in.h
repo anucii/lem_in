@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/04 14:38:54 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/04 16:58:38 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct	s_ant
 {
 	ssize_t		id;
 	t_room		*pos;
+	_Bool		display;
 }				t_ant;
 
 typedef struct	s_statement
@@ -81,7 +82,14 @@ t_options		*ft_options(char *pattern);
 void			ft_error(t_err errtype, char *msg, _Bool stop);
 void			get_input(void);
 t_list			*store_input(t_cmd cmd);
+
 _Bool			ft_parse_input(t_list **alst);
+_Bool			is_comment(char *s);
+_Bool			is_room(char *s);
+_Bool			check_room(char *s);
+_Bool			is_tube(char *s);
+_Bool			check_tube(char *s);
+
 t_list			*ft_antlist(t_cmd cmd, ssize_t i);
 t_list			*ft_roomlist(t_cmd cmd, char *key);
 

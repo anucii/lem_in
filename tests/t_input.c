@@ -20,7 +20,7 @@ int		main(int ac, char **av)
 {
 	t_list	*stored_input = NULL;
 	size_t	i = 0;
-	int		waiter = 0;
+//	int		waiter = 0;
 
 	if (ac > 1)
 	{
@@ -33,7 +33,8 @@ int		main(int ac, char **av)
 	ft_printf("Input stored at %p\n", stored_input);
 	t_display(stored_input);
 	store_input(CLEAR);
-	while (1)
+	/*while (1)
 		wait(&waiter);
+		*/
 	return (0);
 }
