@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 19:04:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/03 21:35:27 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/04 12:54:09 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ static t_list	*init_input(t_list **ptr)
 		else
 			*ptr = ft_lstnew((void *)line, ft_strlen(line) + 1);
 		ft_memdel((void **)&line);
+		if (lim > 99000)
+			ft_putendl_fd("Nearing max lines limit", 2);
+		if (lim > 100000)
+			ft_putendl_fd("Overreached max lines limit", 2);
 	}
 	if (gnl == -1)
 		ft_error(SYSTEM, "STDIN acquisition error", 0);

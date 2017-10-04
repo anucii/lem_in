@@ -6,7 +6,7 @@
 #    By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/29 20:04:31 by jdaufin           #+#    #+#              #
-#    Updated: 2017/10/03 20:12:30 by jdaufin          ###   ########.fr        #
+#    Updated: 2017/10/04 12:36:14 by jdaufin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	mkdir $(OBJ_DIR) 2> /dev/null || true
 	$(CC) $(FLAGS) -c $< -I $(HDR_DIR) -I $(FT_HDR) -I $(PRINTF_HDR) -o $@
 
-clean : $(OBJ) $(TEST_OBJ)
+clean :
 	make -C $(FT_DIR) clean
 	make -C $(PRINTF_DIR) clean
 	rm $(TEST_OBJ)
