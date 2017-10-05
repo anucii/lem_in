@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:43:25 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/04 17:38:51 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/05 14:13:18 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static _Bool	check_coord(char *s)
 		return (0);
 	i = -1;
 	j = 3;
+	stab = ft_strsplit_blanks(s);
 	while (stab[++i]);
 	while (--i && --j)
 	{
@@ -33,7 +34,7 @@ static _Bool	check_coord(char *s)
 			return (0);
 		}
 	}
-	ft_stabdel(stab);
+	ft_stabdel(&stab);
 	return (1);
 }
 
@@ -42,12 +43,12 @@ _Bool	is_room(char *s)
 	char	**stab;
 	ssize_t	i;
 
-	if (!(s && *s))
+	if (!(s && *s) || is_tube(s))
 		return (0);
 	i = -1;
 	stab = ft_strsplit_blanks(s);
 	while (stab[++i]); //nb : i stops on index of null slot
-	ft_stabdel(stab);
+	ft_stabdel(&stab);
 	if (i < 3)
 		ft_error(PARSING, "Warning : room definition misses arguments", 0);
 	return (i < 3 ? 0 : 1);
@@ -55,7 +56,7 @@ _Bool	is_room(char *s)
 
 _Bool	check_room(char *s)
 {
-	if (!(s && *s && is_room(s)))
+	if (!(s && is_room(s)))
 		return (0);
 	if ((*s == '#') || (*s == 'L') || (ft_strchr(s, (int)'-')))
 	{
