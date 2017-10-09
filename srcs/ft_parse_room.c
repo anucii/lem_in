@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:43:25 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/05 14:13:18 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/09 16:15:13 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,23 @@ static _Bool	check_coord(char *s)
 	char		**stab;
 	intmax_t	val;
 	ssize_t		i;
-	ssize_t		j;
+	ssize_t		j[2];
 
 	if (!(s && is_room(s)))
 		return (0);
 	i = -1;
-	j = 3;
+	j[0] = 3;
 	stab = ft_strsplit_blanks(s);
 	while (stab[++i]);
-	while (--i && --j)
+	while (--i && --(j[0]))
 	{
+		j[1] = 1 + (ssize_t)ft_strlen(stab[i]);
+		while (--(j[1]))
+			if (!ft_isdigit(stab[i][j[1] - 1]))
+				return (0);
 		val = ft_atoimax(stab[i]);
 		if ((val < 0) || (val > INT_MAX))
-		{
-			ft_error(PARSING, "Warning : outbound coordinates", 0);
 			return (0);
-		}
 	}
 	ft_stabdel(&stab);
 	return (1);

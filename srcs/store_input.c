@@ -6,11 +6,20 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 19:04:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/04 14:53:26 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/05 14:40:44 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static void		ft_init(t_list **ptr, _Bool (*tab)[2])
+{
+	if (!(ptr && tab))
+		return ;
+	*ptr = NULL;
+	(*tab)[0] = 1;
+	(*tab)[1] = 0;
+}
 
 static t_list	*init_input(t_list **ptr)
 {
@@ -20,9 +29,7 @@ static t_list	*init_input(t_list **ptr)
 
 	if (!(ptr))
 		ft_error(SYSTEM, "Input acquisition failure due to malloc error", 1);
-	*ptr = NULL;
-	check[0] = 1;
-	check[1] = 0;
+	ft_init(ptr, &check);
 	while (check[0] && ((gnl = get_next_line(0, &line)) > 0))
 	{
 		if (*ptr)
@@ -34,7 +41,10 @@ static t_list	*init_input(t_list **ptr)
 		check[1] = 1;
 	}
 	if (!check[0])
+	{
+		ft_lstpop(ptr);
 		ft_error(PARSING, "Warning : file syntax error", 0);
+	}
 	if (gnl == -1)
 		ft_error(SYSTEM, "STDIN acquisition error", 0);
 	return (*ptr);
