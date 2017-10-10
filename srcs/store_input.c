@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 19:04:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/05 14:40:44 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/10 12:35:06 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ static t_list	*init_input(t_list **ptr)
 		ft_error(PARSING, "Warning : file syntax error", 0);
 	}
 	if (gnl == -1)
-		ft_error(SYSTEM, "STDIN acquisition error", 0);
+		ft_error(SYSTEM, "Warning : STDIN acquisition error", 0);
 	return (*ptr);
-	/* Shouldn't the returning of ptr be reserved to read_input ?
-	 */
 }
 
 static t_list	*read_input(t_list **ptr)
@@ -72,15 +70,15 @@ t_list			*store_input(t_cmd cmd)
 {
 	static t_list			*input;
 	static const t_strcmd	actions[4] = (const t_strcmd[]){{INIT,\
-		&init_input},{READ, &read_input}, {CLEAR, &clear_input},\
-		{NOCMD, NULL}};
+		{&init_input}},{READ, {&read_input}}, {CLEAR, {&clear_input}},\
+		{NOCMD, {NULL}}};
 	ssize_t					i;
 
 	i = -1;
 	while (actions[++i].cmd != NOCMD)
 	{
 		if (actions[i].cmd == cmd)
-			return ((actions[i].func)(&input));
+			return ((actions[i].u_func.monof)(&input));
 	}
 	return (NULL);
 }

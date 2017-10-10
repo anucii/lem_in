@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/04 16:58:38 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/10 13:32:30 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ typedef struct	s_statement
 typedef struct	s_strcmd
 {
 	t_cmd		cmd;
-	t_list		*(*func)(t_list **);
+	union		
+	{
+		t_list		*(*dualf)(t_list **, ssize_t i);
+		t_list		*(*monof)(t_list **);
+	}			u_func;
 }				t_strcmd;
 
 t_options		*ft_options(char *pattern);
