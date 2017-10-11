@@ -35,6 +35,24 @@ void	t_showants(void)
 	}
 }
 
+void	t_rooms(void)
+{
+	t_list	*roomlist;
+	char 	*user = "";
+
+	roomlist = ft_roomlist(INIT, NULL);
+	ft_putendl("Type \"all\" to show all rooms, or a specific name to show one");
+	ft_putendl("Type \"STOP\" to stop the process");
+	while (user && (ft_strcmp(user, "STOP")))
+	{
+		scanf(" %s", user);
+		ft_roomlist(READ, user);
+		ft_putendl("");
+	}
+	ft_printf("\nRooms list recap:\n");
+	ft_roomlist(READ, NULL);
+}
+
 int		main(int ac, char **av)
 {
 	t_list	*stored_input = NULL;
@@ -52,8 +70,11 @@ int		main(int ac, char **av)
 	ft_printf("Input stored at %p\n", stored_input);
 	t_display(stored_input);
 	t_showants();
+	t_rooms();
 	if (!(ft_antlist(CLEAR, -1)))
 		ft_putendl("Anthill now void");
+	if (!(ft_roomlist(CLEAR, NULL)))
+		ft_putendl("Roomlist cleared");
 	store_input(CLEAR);
 /*	while (1)
 	  wait(&waiter);

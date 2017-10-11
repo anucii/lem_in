@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 19:04:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/11 15:11:47 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/11 15:14:12 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_list			*store_input(t_cmd cmd)
 {
 	static t_list			*input;
 	static const t_strcmd	actions[4] = (const t_strcmd[]){{INIT,\
-		{&init_input, NULL, NULL}},{READ, {&read_input, NULL, NULL}},\
+		{&init_input, NULL, NULL}}, {READ, {&read_input, NULL, NULL}},\
 	{CLEAR, {&clear_input, NULL, NULL}}, {NOCMD, {NULL, NULL, NULL}}};
 	ssize_t					i;
 
