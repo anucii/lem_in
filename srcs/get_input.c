@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 17:53:12 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/03 19:52:03 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/10 10:29:57 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	get_input(void)
 		if (!(antlist = ft_antlist(INIT, -1)))
 		ft_error();
 		*/
-	// Here : test wether a solution could be found given the stored input.
+	// Here : test whether a solution could be found given the stored input.
 }

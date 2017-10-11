@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/10 13:32:30 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/11 15:08:20 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,17 @@ typedef struct	s_room
 	_Bool		is_free;
 	t_flag		status;
 	size_t		coord[2];
-	t_list		*tubes;
+	t_list		*nghbr;
 }				t_room;
-
-typedef struct	s_neighbr
-{
-	t_room		*neighbr;
-	ssize_t		cost;
-}				t_neighbr;
-
+/*	
+ *	TO REPLACE W/ SIMPLE CHAR *KEYS CONTENTS
+ typedef struct	s_neighbr
+ {
+ t_room		*neighbr;
+ ssize_t		cost;
+ }
+ t_neighbr;
+ */
 typedef struct	s_ant
 {
 	ssize_t		id;
@@ -72,14 +74,17 @@ typedef struct	s_statement
 	void		(*func)(void *);
 }				t_statement;
 
+typedef struct	s_func	
+{
+	t_list		*(*monof)(t_list **);
+	t_list		*(*dualf)(t_list **, ssize_t);
+	t_list		*(*keyf)(t_list **, char *);
+}				t_func;
+
 typedef struct	s_strcmd
 {
 	t_cmd		cmd;
-	union		
-	{
-		t_list		*(*dualf)(t_list **, ssize_t i);
-		t_list		*(*monof)(t_list **);
-	}			u_func;
+	t_func		func;
 }				t_strcmd;
 
 t_options		*ft_options(char *pattern);

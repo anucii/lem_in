@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 18:12:40 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/10 13:43:29 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/11 15:11:09 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_list	*ft_antinit(t_list **anthill, ssize_t i)
 	{
 		ant = (t_ant){j, NULL, 0};
 		if (!(*anthill))
-			 *anthill = ft_lstnew((void *)&ant, sizeof(t_ant));
+			*anthill = ft_lstnew((void *)&ant, sizeof(t_ant));
 		else
 			ft_lstappend(anthill, ft_lstnew((void *)&ant, sizeof(t_ant)));
 	}
@@ -69,8 +69,8 @@ t_list			*ft_antlist(t_cmd cmd, ssize_t i)
 {
 	static t_list			*lst = NULL;
 	static const t_strcmd	commands[4] = (const t_strcmd[]){{INIT,\
-		{&ft_antinit}}, {READ, {&ft_antread}}, {CLEAR, {&ft_antclear}},\
-	{NOCMD, {NULL}}};
+		{NULL, &ft_antinit, NULL}}, {READ, {NULL, &ft_antread, NULL}},\
+	{CLEAR, {NULL, &ft_antclear, NULL}}, {NOCMD, {NULL, NULL, NULL}}};
 	t_list					*input;
 	ssize_t					j;
 
@@ -81,6 +81,6 @@ t_list			*ft_antlist(t_cmd cmd, ssize_t i)
 		i = (ssize_t)ft_atoi((char *)input->content);
 	while (commands[++j].cmd != NOCMD)
 		if (commands[j].cmd == cmd)
-			return (commands[j].u_func.dualf(&lst, i));
+			return (commands[j].func.dualf(&lst, i));
 	return (NULL);
 }
