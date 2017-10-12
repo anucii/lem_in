@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:43:25 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/09 16:15:13 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/12 18:05:48 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ _Bool	is_room(char *s)
 	stab = ft_strsplit_blanks(s);
 	while (stab[++i]); //nb : i stops on index of null slot
 	ft_stabdel(&stab);
-	if (i < 3)
-		ft_error(PARSING, "Warning : room definition misses arguments", 0);
+	if (i != 3)
+		ft_error(PARSING, "Warning : room definition hasn't 3 arguments",\
+				0);
 	return (i < 3 ? 0 : 1);
 }
 

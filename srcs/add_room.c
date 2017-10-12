@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 17:56:10 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/12 15:02:15 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/12 18:08:35 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,14 @@ t_list	*get_room(char *line, t_flag status)
 	t_list	*ret;
 	t_room	room;
 	char	**tab;
-	ssize_t	i[2];
 
 	if (!line)
 		return (NULL);
 	room_init(&room, status);
 	tab = ft_strsplit_blanks(line);
-	i[0] = -1;
-	while (tab[++(i[0])]);
-	i[1] = i[0] - 1;
-	room.coord[0] = (size_t)ft_atoi(tab[i[1] - 1]);
-	room.coord[1] = (size_t)ft_atoi(tab[i[1]]);
+	room.coord[0] = (size_t)ft_atoi(tab[1]);
+	room.coord[1] = (size_t)ft_atoi(tab[2]);
 	room.key = ft_strdup(tab[0]);
-	i[1]--;
-	i[0] = 0;
-	while (++(i[0]) < i[1])
-		room.key = ft_strjoin_free(room.key, 1, tab[i[0]], 0);
 	ret = ft_lstnew((void *)(&room), sizeof(t_room));
 	ft_stabdel(&tab);
 	return (is_duplicate(ret) ? NULL : ret);

@@ -6,11 +6,20 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 13:53:26 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/12 15:33:27 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/12 18:28:34 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static void		ft_init(char **astr, t_list **input)
+{
+	if (!(astr && input))
+		return ;
+	*astr = NULL;
+	*input = (*input)->next;
+	status_flag(STD);
+}
 
 static t_list	*ft_readlist(t_list **roomlist, char *key)
 {
@@ -29,38 +38,34 @@ static t_list	*ft_readlist(t_list **roomlist, char *key)
 	}
 }
 
-static t_list	*ft_roominit(t_list **roomlist, char *key)
+static t_list	*ft_roominit(t_list **rms, char *key)
 {
 	t_list	*input;
 
-	if (!(roomlist && (input = store_input(READ))))
+	if (!(rms && (input = store_input(READ))))
 		return (NULL);
-	key = NULL;
-	input = input->next;
-	status_flag(STD);
+	ft_init(&key, &input);
 	while (input && !is_tube((char *)(input->content)))
 	{
 		if (is_start(input->content) || is_end(input->content))
 			is_end(input->content) ? status_flag(END) : status_flag(START);
 		else if ((!is_comment((char *)(input->content))))
 		{
-				if (!(is_room((char *)(input->content)) &&\
-					add_room(roomlist, (char *)(input->content),\
-						status_flag(NOFLG))))
+				if (!(is_room((char *)(input->content)) && add_room(rms,\
+								(char *)(input->content), status_flag(NOFLG))))
 					ft_error(PARSING, "Warning : room could not be set", 0);
 				status_flag(STD);
 		}
 		input = input->next;
 	}
-	/*
-	while (input && is_tube((char *)(input->content)))
+/*	while (input && is_tube((char *)(input->content)))
 	{
-		if (!add_tube(roomlist, (char *)(input->content)))
+		if (!add_tube(rms, (char *)(input->content)))
 			ft_error(PARSING,"Warning : edges setting interrupted" , 0);
 		input = input->next;
 	}
 	*/
-	return (*roomlist);
+	return (*rms);
 }
 
 static t_list	*clear_rooms(t_list **roomlist, char *key)
