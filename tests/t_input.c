@@ -35,22 +35,60 @@ void	t_showants(void)
 	}
 }
 
+void	print_room(t_list *ptr)
+{
+	t_room	*room;
+
+	if (!ptr)
+		return ;
+	room = (t_room*)ptr->content;
+	ft_printf("%s (status : %u) @ [%zu, %zu]\n", room->key, room->status,\
+			room->coord[0], room->coord[1]);
+}
+
+void	print_roomlist(t_list *ptr)
+{
+	if (!ptr)
+		return ;
+	while (ptr)
+	{
+		print_room(ptr);
+		ptr = ptr->next;
+	}
+}
+
 void	t_rooms(void)
 {
 	t_list	*roomlist;
-	char 	*user = "";
+	ssize_t	i = -1;
+	char 	*user[6] = (char *[]){"home", "rudys", "luans", "elsewhere",\
+		"all" , NULL};
 
-	roomlist = ft_roomlist(INIT, NULL);
+	ft_roomlist(INIT, NULL);
+/*
 	ft_putendl("Type \"all\" to show all rooms, or a specific name to show one");
 	ft_putendl("Type \"STOP\" to stop the process");
-	while (user && (ft_strcmp(user, "STOP")))
+	ft_printf("TEST : %s\n", user);
+	ft_printf("isatty(0) return = %d\n", isatty(0));
+	while (get_next_line(0, (void *)user) == 1)
 	{
-		scanf(" %s", user);
-		ft_roomlist(READ, user);
-		ft_putendl("");
+		ft_printf("user input %s\n", user);
+		roomlist = ft_roomlist(READ, user);
+		if (ft_strequ(user, "all"))
+			print_roomlist(roomlist);
+		else
+			print_room(roomlist);
+		//ft_putendl("");
+	}	
+	*/
+	while (user[++i])
+	{
+		roomlist = ft_roomlist(READ, user[i]);
+		print_room(roomlist);
 	}
 	ft_printf("\nRooms list recap:\n");
-	ft_roomlist(READ, NULL);
+	roomlist = ft_roomlist(READ, NULL);
+	print_roomlist(roomlist);
 }
 
 int		main(int ac, char **av)

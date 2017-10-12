@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 13:53:26 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/11 21:13:02 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/12 15:33:27 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,14 @@ static t_list	*ft_roominit(t_list **roomlist, char *key)
 	{
 		if (is_start(input->content) || is_end(input->content))
 			is_end(input->content) ? status_flag(END) : status_flag(START);
-		else if (!(is_room((char *)(input->content)) &&\
+		else if ((!is_comment((char *)(input->content))))
+		{
+				if (!(is_room((char *)(input->content)) &&\
 					add_room(roomlist, (char *)(input->content),\
 						status_flag(NOFLG))))
-			ft_error(PARSING, "Warning : room could not be set", 0);
+					ft_error(PARSING, "Warning : room could not be set", 0);
+				status_flag(STD);
+		}
 		input = input->next;
 	}
 	/*
@@ -84,7 +88,7 @@ t_list	*ft_roomlist(t_cmd cmd, char *key)
 {
 	ssize_t						i;
 	static t_list				*roomlist = NULL;
-	static const t_strcmd	actions[4]= (const t_strcmd[]){{INIT,\
+	static const t_strcmd		actions[4]= (const t_strcmd[]){{INIT,\
 		{NULL, NULL, &ft_roominit}}, {READ, {NULL, NULL, &ft_readlist}},\
 	{CLEAR, {NULL, NULL, &clear_rooms}}, {NOCMD, {NULL, NULL, NULL}}};
 

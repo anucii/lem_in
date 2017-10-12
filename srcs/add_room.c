@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 17:56:10 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/11 21:07:43 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/12 15:02:15 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_list	*get_room(char *line, t_flag status)
 	i[1] = i[0] - 1;
 	room.coord[0] = (size_t)ft_atoi(tab[i[1] - 1]);
 	room.coord[1] = (size_t)ft_atoi(tab[i[1]]);
-	room.key = tab[0];
+	room.key = ft_strdup(tab[0]);
 	i[1]--;
 	i[0] = 0;
 	while (++(i[0]) < i[1])
