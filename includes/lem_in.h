@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/11 20:57:43 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/12 20:35:39 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ t_list			*ft_antlist(t_cmd cmd, ssize_t i);
 t_list			*ft_roomlist(t_cmd cmd, char *key);
 
 _Bool			is_duplicate(t_list *room);
+_Bool			add_tube(t_list **roomlist, char *line);
 _Bool			add_room(t_list **roomlist, char *line, t_flag status);
 t_list			*get_room(char *line, t_flag status);
 

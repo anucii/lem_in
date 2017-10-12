@@ -38,12 +38,25 @@ void	t_showants(void)
 void	print_room(t_list *ptr)
 {
 	t_room	*room;
+	t_list	*tubes;
 
 	if (!ptr)
 		return ;
 	room = (t_room*)ptr->content;
 	ft_printf("%s (status : %u) @ [%zu, %zu]\n", room->key, room->status,\
 			room->coord[0], room->coord[1]);
+	if ((tubes = room->tubes))
+	{
+		ft_printf("Tubes:");
+		while (tubes)
+		{
+			ft_printf(" %s ", (char *)(tubes->content));
+			tubes = tubes->next;
+		}
+		ft_putendl("");
+	}
+	else
+		ft_printf("No tube at %p\n", &(room->tubes));
 }
 
 void	print_roomlist(t_list *ptr)
@@ -65,20 +78,20 @@ void	t_rooms(void)
 		"all" , NULL};
 
 	ft_roomlist(INIT, NULL);
-/*
-	ft_putendl("Type \"all\" to show all rooms, or a specific name to show one");
-	ft_putendl("Type \"STOP\" to stop the process");
-	ft_printf("TEST : %s\n", user);
-	ft_printf("isatty(0) return = %d\n", isatty(0));
-	while (get_next_line(0, (void *)user) == 1)
-	{
-		ft_printf("user input %s\n", user);
-		roomlist = ft_roomlist(READ, user);
-		if (ft_strequ(user, "all"))
-			print_roomlist(roomlist);
-		else
-			print_room(roomlist);
-		//ft_putendl("");
+	/*
+	   ft_putendl("Type \"all\" to show all rooms, or a specific name to show one");
+	   ft_putendl("Type \"STOP\" to stop the process");
+	   ft_printf("TEST : %s\n", user);
+	   ft_printf("isatty(0) return = %d\n", isatty(0));
+	   while (get_next_line(0, (void *)user) == 1)
+	   {
+	   ft_printf("user input %s\n", user);
+	   roomlist = ft_roomlist(READ, user);
+	   if (ft_strequ(user, "all"))
+	   print_roomlist(roomlist);
+	   else
+	   print_room(roomlist);
+	//ft_putendl("");
 	}	
 	*/
 	while (user[++i])
@@ -87,7 +100,7 @@ void	t_rooms(void)
 		print_room(roomlist);
 	}
 	ft_printf("\nRooms list recap:\n");
-	roomlist = ft_roomlist(READ, NULL);
+	roomlist = ft_roomlist(READ, "all");
 	print_roomlist(roomlist);
 }
 
@@ -95,7 +108,7 @@ int		main(int ac, char **av)
 {
 	t_list	*stored_input = NULL;
 	size_t	i = 0;
-//	int		waiter = 0;
+	//	int		waiter = 0;
 
 	if (ac > 1)
 	{
@@ -114,8 +127,8 @@ int		main(int ac, char **av)
 	if (!(ft_roomlist(CLEAR, NULL)))
 		ft_putendl("Roomlist cleared");
 	store_input(CLEAR);
-/*	while (1)
-	  wait(&waiter);
-*/	
+	/*	while (1)
+		wait(&waiter);
+		*/	
 	return (0);
 }
