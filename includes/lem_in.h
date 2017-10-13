@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/12 20:35:39 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/13 18:08:12 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_room
 	_Bool		is_free;
 	t_flag		status;
 	size_t		coord[2];
+	short		weight;
 	t_list		*tubes;
 }				t_room;
 /*	
@@ -106,6 +107,7 @@ t_flag			status_flag(t_flag input);
 t_list			*ft_antlist(t_cmd cmd, ssize_t i);
 t_list			*ft_roomlist(t_cmd cmd, char *key);
 
+void			tubes_initloop(t_list **roomlist, t_list *input);
 _Bool			is_duplicate(t_list *room);
 _Bool			add_tube(t_list **roomlist, char *line);
 _Bool			add_room(t_list **roomlist, char *line, t_flag status);

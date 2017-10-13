@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 17:56:10 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/12 18:08:35 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/13 18:09:12 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	room_init(t_room *ptr, t_flag status)
 {
 	if (ptr)
-		*ptr = (t_room){NULL, 1, status, {0,0}, NULL};
+		*ptr = (t_room){NULL, 1, status, {0,0}, 0, NULL};
 }
 
 _Bool	is_duplicate(t_list *room)

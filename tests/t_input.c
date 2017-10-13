@@ -74,7 +74,7 @@ void	t_rooms(void)
 {
 	t_list	*roomlist;
 	ssize_t	i = -1;
-	char 	*user[6] = (char *[]){"home", "rudys", "luans", "elsewhere",\
+	char 	*user[6] = (char *[]){"home", "friend", "luans", "elsewhere",\
 		"all" , NULL};
 
 	ft_roomlist(INIT, NULL);
@@ -97,7 +97,8 @@ void	t_rooms(void)
 	while (user[++i])
 	{
 		roomlist = ft_roomlist(READ, user[i]);
-		print_room(roomlist);
+		ft_strequ(user[i], "all") ? print_roomlist(roomlist)\
+			: print_room(roomlist);
 	}
 	ft_printf("\nRooms list recap:\n");
 	roomlist = ft_roomlist(READ, "all");

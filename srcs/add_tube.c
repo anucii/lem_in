@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 18:31:45 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/12 21:16:28 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/13 18:05:53 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static _Bool	key_exists(t_list *lst, char *key)
 	return (0);
 }
 
-_Bool	new_tube(char *tgt, char *neighbr)
+_Bool			new_tube(char *tgt, char *neighbr)
 {
 	t_room	*room;
 	t_list	*lst;
@@ -50,16 +50,22 @@ _Bool	new_tube(char *tgt, char *neighbr)
 	return (1);
 }
 
-_Bool	add_tube(t_list **rooms, char *line)
+_Bool			add_tube(t_list **rooms, char *line)
 {
 	char	**slots;
+	_Bool	checks;
 
 	if (!(rooms && *rooms && line && check_tube(line)))
 		return (0);
 	if (!(slots = ft_strsplit(line, '-')))
 		return (0);
-	if (!(ft_roomlist(READ, slots[0]) && (ft_roomlist(READ, slots[1])))\
-		|| (!new_tube(slots[0], slots[1]) && !new_tube(slots[1], slots[0])))
-		return (0);
-	return (1);
+	if (ft_roomlist(READ, slots[0]) && ft_roomlist(READ, slots[1]))
+	{
+		checks = new_tube(slots[0], slots[1]);
+		checks += new_tube(slots[1], slots[0]);
+		ft_stabdel(&slots);
+		return (checks);
+	}
+	ft_stabdel(&slots);
+	return (0);
 }
