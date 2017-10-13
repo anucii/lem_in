@@ -6,7 +6,7 @@
 #    By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/29 20:04:31 by jdaufin           #+#    #+#              #
-#    Updated: 2017/10/13 18:57:50 by jdaufin          ###   ########.fr        #
+#    Updated: 2017/10/13 19:08:56 by jdaufin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ TEST_OBJ = $(patsubst %.c, %.o, $(TEST_SRC))
 #RDX = ft_antlist ft_error ft_options get_input store_input
 RDX = get_input store_input ft_options ft_error ft_parse_input ft_parse_room\
 	  ft_parse_tube ft_parse_comment ft_antlist status_flag analyse_comments\
-	  add_room ft_roomlist add_tube tubes_initloop check_ends
+	  add_room ft_roomlist add_tube tubes_initloop check_ends init_weights
 SRC_DIR = srcs/
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(RDX)))
 OBJ_DIR = builts/

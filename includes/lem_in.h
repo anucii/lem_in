@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/13 18:57:39 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/13 19:11:36 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ _Bool			add_room(t_list **roomlist, char *line, t_flag status);
 t_list			*get_room(char *line, t_flag status);
 
 _Bool			check_ends(void);
+_Bool			init_weights(void);
 
 #endif
