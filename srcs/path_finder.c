@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 19:53:51 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/14 17:26:47 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/14 20:34:29 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,39 @@ static _Bool	is_parent(char *key, t_list *parents)
 	return (0);
 }
 
-short	get_weight(t_room **room, t_list **parents)
+static t_list	*ctrl_list(char *elmt)
+{
+	static t_list	*ctrl = NULL;
+	t_list			*new;
+
+	if (!elmt)
+		return (NULL);
+	if (ft_strequ(elmt, "htkc-2#0"))
+	{
+		ft_lstdel(&ctrl, &ft_linkdel);
+		return (NULL);
+	}
+	if (!ctrl)
+	{
+		if (!(ctrl = ft_lstnew((void *)elmt, 1 + ft_strlen(elmt))))
+			ft_error(SYSTEM,\
+					"Error in control list of weight setting precedence", 1);
+	}
+	else
+	{
+		if (!(new = ft_lstnew((void *)elmt, 1 + ft_strlen(elmt))))
+			ft_error(SYSTEM,\
+					"Error in control list of weight setting precedence", 1);
+		ft_lstappend(&ctrl, new);
+	}
+	return (ctrl);
+}
+
+short	get_weight(t_room **room, t_list *parents)
 {
 	t_list	*mates;
-	t_list	*lst[2];
-	t_room	*neighbour;
+	t_list	*lst;
+//	t_room	*neighbour;
 	short	cand;
 
 	if (!(room && *room && (mates = (*room)->tubes)))
@@ -40,27 +68,24 @@ short	get_weight(t_room **room, t_list **parents)
 	if ((*room)->status == END)
 	{
 		(*room)->weight = 0;
-		ft_lstdel(parents, &ft_linkdel);
 		return (0);
 	}
-	if (! (lst[0] = (parents && *parents) ? NULL : ft_lstnew((void *)\
-					(*room)->key, 1 + ft_strlen((char *)((*room)->key)))))
-		ft_lstappend(parents, ft_lstnew((void *)(*room)->key, 1\
-					+ ft_strlen((char *)(*room)->key)));
+	ctrl_list((*room)->key);
 	while (mates)
 	{
-		if ((lst[1] = ft_roomlist(READ, (char *)(mates->content))))
+		if ((lst = ft_roomlist(READ, (char *)(mates->content))))
 		{
-			if (!is_parent((neighbour = (t_room *)lst[1]->content)->key,\
-						lst[0] ? lst[0] : *parents))
+			if (!is_parent((/*neighbour = */(t_room *)(lst->content))->key,\
+						parents))
 			{
-				cand = 1 + get_weight(&neighbour, parents && *parents ? parents :\
-						&lst[0]);
+				cand = 1 + get_weight(/*&neighbour*/(t_room **)&(lst->content),\
+						ctrl_list((char *)mates->content));
 				(*room)->weight = cand < (*room)->weight ? cand :\
 								  (*room)->weight;
 			}
 		}
 		mates = mates->next;
+		//ctrl_list("htkc-2#0");
 	}
 	return ((*room)->weight);
 }

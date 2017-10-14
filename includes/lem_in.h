@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/14 17:04:10 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/14 19:49:16 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_list			*get_room(char *line, t_flag status);
 _Bool			check_ends(void);
 _Bool			init_weights(void);
 _Bool			set_weights(void);
-short			get_weight(t_room **room, t_list **parents);
+short			get_weight(t_room **room, t_list *parents);
 
 //t_list			*ft_pathlist(t_cmd cmd, ssize_t i);
 
