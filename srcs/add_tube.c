@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 18:31:45 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/13 18:05:53 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/13 19:46:28 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ _Bool			add_tube(t_list **rooms, char *line)
 	if (ft_roomlist(READ, slots[0]) && ft_roomlist(READ, slots[1]))
 	{
 		checks = new_tube(slots[0], slots[1]);
-		checks += new_tube(slots[1], slots[0]);
+		checks |= new_tube(slots[1], slots[0]);
 		ft_stabdel(&slots);
 		return (checks);
 	}

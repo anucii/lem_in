@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/13 19:11:36 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/14 17:04:10 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,13 @@ typedef struct	s_room
 	short		weight;
 	t_list		*tubes;
 }				t_room;
-/*	
- *	TO REPLACE W/ SIMPLE CHAR *KEYS CONTENTS
- typedef struct	s_neighbr
- {
- t_room		*neighbr;
- ssize_t		cost;
- }
- t_neighbr;
- */
+
 typedef struct	s_ant
 {
 	ssize_t		id;
 	t_room		*pos;
 	_Bool		display;
 }				t_ant;
-
-typedef struct	s_statement
-{
-	char		*pattern;
-	void		(*func)(void *);
-}				t_statement;
 
 typedef struct	s_func	
 {
@@ -115,5 +101,9 @@ t_list			*get_room(char *line, t_flag status);
 
 _Bool			check_ends(void);
 _Bool			init_weights(void);
+_Bool			set_weights(void);
+short			get_weight(t_room **room, t_list **parents);
+
+//t_list			*ft_pathlist(t_cmd cmd, ssize_t i);
 
 #endif

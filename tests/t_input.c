@@ -43,7 +43,8 @@ void	print_room(t_list *ptr)
 	if (!ptr)
 		return ;
 	room = (t_room*)ptr->content;
-	ft_printf("%s (status : %u) @ [%zu, %zu]\n", room->key, room->status,\
+	ft_printf("%s (status : %u, weight : %hd) @ [%zu, %zu]\n", room->key,\
+			room->status, room->weight,\
 			room->coord[0], room->coord[1]);
 	if ((tubes = room->tubes))
 	{
@@ -78,6 +79,7 @@ void	t_rooms(void)
 		"all" , NULL};
 
 	ft_roomlist(INIT, NULL);
+	init_weights();
 	/*
 	   ft_putendl("Type \"all\" to show all rooms, or a specific name to show one");
 	   ft_putendl("Type \"STOP\" to stop the process");
@@ -100,6 +102,7 @@ void	t_rooms(void)
 		ft_strequ(user[i], "all") ? print_roomlist(roomlist)\
 			: print_room(roomlist);
 	}
+	ft_printf("Weights successfully set ?\n%s\n", set_weights() ? "Yes" : "No");
 	ft_printf("\nRooms list recap:\n");
 	roomlist = ft_roomlist(READ, "all");
 	print_roomlist(roomlist);
@@ -123,6 +126,8 @@ int		main(int ac, char **av)
 	t_display(stored_input);
 	t_showants();
 	t_rooms();
+	ft_printf("Has roomlist exactly one start and end ?\n%s\n",\
+			check_ends() ? "Yes": "No");
 	if (!(ft_antlist(CLEAR, -1)))
 		ft_putendl("Anthill now void");
 	if (!(ft_roomlist(CLEAR, NULL)))
