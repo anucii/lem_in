@@ -6,13 +6,13 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 19:53:51 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/15 14:54:49 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/15 15:36:06 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static _Bool	is_parent(char *key, t_list *parents)
+_Bool	is_parent(char *key, t_list *parents)
 {
 	t_list	*buf;
 
@@ -28,7 +28,7 @@ static _Bool	is_parent(char *key, t_list *parents)
 	return (0);
 }
 
-static t_list	*ctrl_list(char *elmt)
+t_list	*ctrl_list(char *elmt)
 {
 	static t_list	*ctrl = NULL;
 	t_list			*new;
@@ -54,51 +54,6 @@ static t_list	*ctrl_list(char *elmt)
 		ft_lstappend(&ctrl, new);
 	}
 	return (ctrl);
-}
-
-short	get_weight(t_room **room, t_list *parents)
-{
-	t_list	*mates;
-	t_list	*buf[2];
-	t_list	*lst;
-	//	t_room	*neighbour;
-	short	cand;
-
-	if (!(room && *room && (mates = (*room)->tubes)))
-		return (SHRT_MIN);
-	if ((*room)->status == END)
-	{
-		(*room)->weight = 0;
-		return (0);
-	}
-	while (mates)
-	{
-		if ((*room)->status == START)
-			ctrl_list((*room)->key);
-		buf[0] = parents ? ft_lstdup(parents) : NULL;
-		if ((lst = ft_roomlist(READ, (char *)(mates->content))))
-		{
-			if (!is_parent((/*neighbour = */(t_room *)(lst->content))->key,\
-						parents))
-			{
-				cand = 1 + get_weight(/*&neighbour*/(t_room **)&(lst->content),\
-						ctrl_list((char *)mates->content));
-				(*room)->weight = cand < (*room)->weight ? cand :\
-								  (*room)->weight;
-			}
-		}
-		ctrl_list("htkc-2#0");
-		buf[1] = buf[0];
-		while (buf[0])
-		{
-			parents = ctrl_list((char *)buf[0]->content);
-			buf[0] = buf[0]->next;
-		}
-		if (buf[1])
-			ft_lstdel(&buf[1], &ft_linkdel);
-		mates = mates->next;
-	}
-	return ((*room)->weight);
 }
 
 _Bool	set_weights(void)
