@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 19:03:30 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/13 19:16:48 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/15 11:50:50 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ _Bool	init_weights(void)
 	while (roomlist)
 	{
 		room = (t_room *)(roomlist->content);
-		room->weight = room->status == START ? 0 : SHRT_MAX;
+		room->weight = room->status == START ? 0 : (SHRT_MAX / 2) ;
 		roomlist = roomlist->next;
 	}
 	return (1);

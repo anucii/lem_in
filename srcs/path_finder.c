@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 19:53:51 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/14 20:34:29 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/15 11:51:05 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ short	get_weight(t_room **room, t_list *parents)
 {
 	t_list	*mates;
 	t_list	*lst;
-//	t_room	*neighbour;
+	//	t_room	*neighbour;
 	short	cand;
 
 	if (!(room && *room && (mates = (*room)->tubes)))
@@ -70,9 +70,10 @@ short	get_weight(t_room **room, t_list *parents)
 		(*room)->weight = 0;
 		return (0);
 	}
-	ctrl_list((*room)->key);
 	while (mates)
 	{
+		if ((*room)->status == START)
+			ctrl_list((*room)->key);
 		if ((lst = ft_roomlist(READ, (char *)(mates->content))))
 		{
 			if (!is_parent((/*neighbour = */(t_room *)(lst->content))->key,\
@@ -85,6 +86,8 @@ short	get_weight(t_room **room, t_list *parents)
 			}
 		}
 		mates = mates->next;
+		if ((*room)->status == START)
+			ctrl_list("htkc-2#0");
 		//ctrl_list("htkc-2#0");
 	}
 	return ((*room)->weight);
