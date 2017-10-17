@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 17:56:10 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/13 18:09:12 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/16 16:10:26 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,13 @@ t_list	*get_room(char *line, t_flag status)
 	room.key = ft_strdup(tab[0]);
 	ret = ft_lstnew((void *)(&room), sizeof(t_room));
 	ft_stabdel(&tab);
-	return (is_duplicate(ret) ? NULL : ret);
+	if (is_duplicate(ret))
+	{
+		ft_error(PARSING, "Warning : room duplicated (name || coordinates)", 0);
+		return (NULL);
+	}
+	else
+		return (ret);
 }
 
 _Bool	add_room(t_list **roomlist, char *line, t_flag status)
