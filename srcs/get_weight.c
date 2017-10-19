@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:27:06 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/19 16:04:55 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/19 17:12:32 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ _Bool				get_weight(t_room **room)
 {
 	t_list	*to_map[2];
 
-	if (!(room && *room))
+	if (!(room && *room && ((*room)->status == END)))
 		return (0);
 	init_loop(&to_map[0], room);
 	to_map[1] = to_map[0];
