@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 19:53:51 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/15 15:36:06 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/18 19:45:40 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ _Bool	set_weights(void)
 
 	if (!(roomlist = ft_roomlist(READ, NULL)))
 		return (0);
-	while (roomlist && ((cur = (t_room *)roomlist->content)->status != START))
+	while (roomlist && ((cur = (t_room *)roomlist->content)->status != END))
 		roomlist = roomlist->next;
-	return (get_weight(&cur, NULL) < 0 ? 0 : 1);
+	return (get_weight(&cur));
 }

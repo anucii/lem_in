@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/15 15:38:09 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/19 15:16:40 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_room
 	_Bool		is_free;
 	t_flag		status;
 	size_t		coord[2];
-	short		weight;
+	int			weight;
 	t_list		*tubes;
 }				t_room;
 
@@ -73,6 +73,12 @@ typedef struct	s_strcmd
 	t_cmd		cmd;
 	t_func		func;
 }				t_strcmd;
+
+typedef struct	s_calls
+{
+	char		*caller;
+	char		*callee;
+}				t_calls;
 
 t_options		*ft_options(char *pattern);
 void			ft_error(t_err errtype, char *msg, _Bool stop);
@@ -102,7 +108,7 @@ t_list			*get_room(char *line, t_flag status);
 _Bool			check_ends(void);
 _Bool			init_weights(void);
 _Bool			set_weights(void);
-short			get_weight(t_room **room, t_list *parents);
+_Bool			get_weight(t_room **endroom);
 _Bool			is_parent(char *key, t_list *parents);
 t_list			*ctrl_list(char *elmt);
 
