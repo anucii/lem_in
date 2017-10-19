@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:27:06 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/19 15:51:35 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/19 16:04:55 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,28 +63,28 @@ static void			clean_calls(t_list **map_elem)
 static t_list		*loop_weight(t_list **to_map)
 {
 	t_calls	*buf;
-	t_list	*links[4];
+	t_list	*links[3];
 	t_room	*curs[2];
 
 	if (!(to_map && *to_map))
 		return (NULL);
 	links[0] = *to_map;
-	while (links[0])
+	while (links[0] && (buf = (t_calls *)(links[0]->content)))
 	{
-		buf = (t_calls *)(links[0]->content);
-		links[2] = ft_roomlist(READ, buf->caller);
-		if (links[2] && (links[3] = ft_roomlist(READ, buf->callee)))
+		links[1] = ft_roomlist(READ, buf->caller);
+		if (links[1] && (links[2] = ft_roomlist(READ, buf->callee)))
 		{
-			curs[0] = buf->caller ? (t_room *)links[2]->content : NULL;
-			curs[1] = buf->callee ? (t_room *)links[3]->content : NULL;
-			add_elems(buf->callee, curs[1]->tubes, to_map);
-			if (curs[0])
+			curs[1] = buf->callee ? (t_room *)links[2]->content : NULL;
+			if ((curs[0] = buf->caller ? (t_room *)links[1]->content : NULL)\
+					&& (curs[0]->status != START))
+			{
+				add_elems(buf->callee, curs[1]->tubes, to_map);
 				curs[1]->weight = curs[1]->weight < (1 + curs[0]->weight) ?\
 								curs[1]->weight : 1 + curs[0]->weight;
+			}
 		}
-		links[1] = links[0]->next;
 		clean_calls((t_list **)&links[0]);
-		links[0] = links[1];
+		links[0] = links[0]->next;
 	}
 	return (links[0]);
 }
