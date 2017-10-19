@@ -43,7 +43,7 @@ void	print_room(t_list *ptr)
 	if (!ptr)
 		return ;
 	room = (t_room*)ptr->content;
-	ft_printf("%s (status : %u, weight : %hd) @ [%zu, %zu]\n", room->key,\
+	ft_printf("%s (status : %u, weight : %d) @ [%zu, %zu]\n", room->key,\
 			room->status, room->weight,\
 			room->coord[0], room->coord[1]);
 	if ((tubes = room->tubes))

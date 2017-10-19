@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:27:06 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/19 15:14:58 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/19 15:51:35 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void			add_elems(char *parent, t_list *tubes, t_list **to_map)
 		{
 			calls.caller = parent && *parent ? ft_strdup(parent) : NULL;
 			calls.callee = buf->content ? ft_strdup((char *)buf->content)\
-						   : NULL;
+							: NULL;
 			ft_lstappend(to_map, ft_lstnew((void *)&calls, sizeof(t_calls)));
 		}
 		buf = buf->next;
@@ -60,34 +60,46 @@ static void			clean_calls(t_list **map_elem)
 	ft_strdel(&(calls->callee));
 }
 
+static t_list		*loop_weight(t_list **to_map)
+{
+	t_calls	*buf;
+	t_list	*links[4];
+	t_room	*curs[2];
+
+	if (!(to_map && *to_map))
+		return (NULL);
+	links[0] = *to_map;
+	while (links[0])
+	{
+		buf = (t_calls *)(links[0]->content);
+		links[2] = ft_roomlist(READ, buf->caller);
+		if (links[2] && (links[3] = ft_roomlist(READ, buf->callee)))
+		{
+			curs[0] = buf->caller ? (t_room *)links[2]->content : NULL;
+			curs[1] = buf->callee ? (t_room *)links[3]->content : NULL;
+			add_elems(buf->callee, curs[1]->tubes, to_map);
+			if (curs[0])
+				curs[1]->weight = curs[1]->weight < (1 + curs[0]->weight) ?\
+								curs[1]->weight : 1 + curs[0]->weight;
+		}
+		links[1] = links[0]->next;
+		clean_calls((t_list **)&links[0]);
+		links[0] = links[1];
+	}
+	return (links[0]);
+}
+
 _Bool				get_weight(t_room **room)
 {
-	t_list	*to_map[5];
-	t_calls	*buf;
-	t_room	*curs[2];
+	t_list	*to_map[2];
 
 	if (!(room && *room))
 		return (0);
 	init_loop(&to_map[0], room);
-	to_map[2] = to_map[0];
+	to_map[1] = to_map[0];
 	to_map[0] = to_map[0]->next;
-	while (to_map[0])
-	{
-		buf = (t_calls *)(to_map[0]->content);
-		if ((to_map[3] = ft_roomlist(READ, buf->caller)) && (to_map[4] = \
-					ft_roomlist(READ, buf->callee)))
-		{
-			curs[0] = buf->caller ? (t_room *)to_map[3]->content : NULL;
-			curs[1] = buf->callee ? (t_room *)to_map[4]->content : NULL;
-			add_elems(buf->callee, curs[1]->tubes, (t_list **)&to_map[0]);
-			if (curs[0])
-				curs[1]->weight = curs[1]->weight < (1 + curs[0]->weight) ?\
-								  curs[1]->weight : 1 + curs[0]->weight; 
-		}
-		to_map[1] = to_map[0]->next;
-		clean_calls((t_list **)&to_map[0]);
-		to_map[0] = to_map[1];
-	}
-	ft_lstdel(&to_map[2], &ft_linkdel);
+	if (loop_weight(&to_map[0]))
+		return (0);
+	ft_lstdel(&to_map[1], &ft_linkdel);
 	return (1);
 }
