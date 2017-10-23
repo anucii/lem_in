@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/19 15:16:40 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/23 17:13:57 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ _Bool			is_end(void *content);
 t_flag			status_flag(t_flag input);
 t_list			*ft_antlist(t_cmd cmd, ssize_t i);
 t_list			*ft_roomlist(t_cmd cmd, char *key);
+t_list			*ft_pathlist(t_cmd cmd, ssize_t i);
 
 void			tubes_initloop(t_list **roomlist, t_list *input);
 _Bool			is_duplicate(t_list *room);
@@ -111,6 +112,9 @@ _Bool			set_weights(void);
 _Bool			get_weight(t_room **endroom);
 _Bool			is_parent(char *key, t_list *parents);
 t_list			*ctrl_list(char *elmt);
+
+t_list			*get_path(t_list *rooms);
+t_list			*get_start(t_list *rooms);
 
 t_list			*ft_lstdup(t_list *src);
 
