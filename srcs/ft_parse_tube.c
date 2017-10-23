@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:43:46 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/12 18:36:36 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/19 17:43:23 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,16 @@ _Bool	is_tube(char *s)
 
 _Bool	check_tube(char *s)
 {
+	ssize_t	i[2];
+
+	i[0] = -1;
+	i[1] = 0;
 	if (!(s && is_tube(s)))
 		return (0);
-	if ((ft_wordcount(s, '-') != 2))
+	while (s[++i[0]])
+		if (s[i[0]] == '-')
+			++i[1];
+	if ((i[1] != 1) || (ft_wordcount(s, '-') != 2))
 		return (0);
 	return (1);
 }
