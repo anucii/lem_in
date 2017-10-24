@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/23 17:13:57 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/24 18:33:18 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,9 @@ _Bool			get_weight(t_room **endroom);
 _Bool			is_parent(char *key, t_list *parents);
 t_list			*ctrl_list(char *elmt);
 
-t_list			*get_path(t_list *rooms);
-t_list			*get_start(t_list *rooms);
+t_list			*get_path(void);
+t_list			*get_start(void);
+t_list			*get_end(void);
 
 t_list			*ft_lstdup(t_list *src);
 

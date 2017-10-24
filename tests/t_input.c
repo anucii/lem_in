@@ -108,6 +108,29 @@ void	t_rooms(void)
 	print_roomlist(roomlist);
 }
 
+void	t_pathes(void)
+{
+	t_list	*buf[2];
+	ssize_t	i = -1;
+
+	buf[0] = ft_pathlist(INIT, -1);
+	ft_putendl_fd("Pathlist initialized", 2);
+	while (buf[0])
+	{
+		if ((buf[0] = ft_pathlist(READ, ++i))\
+					&& (buf[1] = (t_list *)buf[0]->content))
+		{
+			ft_printf("Path no %zu : ", i);
+			while (buf[1] && buf[1]->content)
+			{
+				ft_printf("%s ", (char *)buf[1]->content);
+				buf[1] = buf[1]->next;
+			}
+			ft_putendl("");
+		}
+	}
+}
+
 int		main(int ac, char **av)
 {
 	t_list	*stored_input = NULL;
@@ -128,6 +151,7 @@ int		main(int ac, char **av)
 	t_rooms();
 	ft_printf("Has roomlist exactly one start and end ?\n%s\n",\
 			check_ends() ? "Yes": "No");
+	t_pathes();
 	if (!(ft_antlist(CLEAR, -1)))
 		ft_putendl("Anthill now void");
 	if (!(ft_roomlist(CLEAR, NULL)))
