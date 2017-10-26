@@ -135,7 +135,7 @@ int		main(int ac, char **av)
 {
 	t_list	*stored_input = NULL;
 	size_t	i = 0;
-	//	int		waiter = 0;
+	//int		waiter = 0;
 
 	if (ac > 1)
 	{
@@ -153,12 +153,15 @@ int		main(int ac, char **av)
 			check_ends() ? "Yes": "No");
 	t_pathes();
 	if (!(ft_antlist(CLEAR, -1)))
-		ft_putendl("Anthill now void");
+		ft_putendl("Anthill cleared");
 	if (!(ft_roomlist(CLEAR, NULL)))
 		ft_putendl("Roomlist cleared");
+	//if (!(ft_pathlist(CLEAR, -1)))
+	//	ft_putendl("Pathlist cleared");
 	store_input(CLEAR);
-	/*	while (1)
+
+/*	while (1)
 		wait(&waiter);
-		*/	
+*/		
 	return (0);
 }

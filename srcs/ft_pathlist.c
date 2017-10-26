@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 19:31:13 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/24 18:33:42 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/26 17:40:03 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,27 @@
 
 static t_list	*init_pathes(t_list **pathes, ssize_t i)
 {
-	t_list	*buf[3];
+	t_list	*buf;
+	t_list	*tmp;
 
 	if (!pathes)
 		return (NULL);
 	i = 0;
-	if (!(check_ends() && (buf[1] = get_path())))
+	buf = NULL;
+	if (!(check_ends() && (buf = get_path())))
 		ft_error(PARSING, "Error : no valid solution to the given map", 1);
-	if (!(buf[0] = ft_lstnew((void *)buf[1], sizeof(t_list))))
+	if (!(*pathes = ft_lstnew((void *)buf, sizeof(t_list))))
 		ft_error(SYSTEM, "Error : could not init solutions list", 1);
-	while ((buf[1] = get_path()))
-		if ((buf[2] = ft_lstnew((void *)buf[1], sizeof(t_list))))
-			ft_lstappend((t_list **)&buf[0], buf[2]);
-	if (!(*pathes = buf[0]))
+	if (buf)
+		ft_memdel(&buf->content);
+	ft_memdel((void **)&buf);
+	while ((buf = get_path()))
+	{
+		ft_lstappend(pathes, tmp = ft_lstnew((void *)buf, sizeof(t_list)));
+		ft_memdel(&buf->content);
+		ft_memdel((void **)&buf);
+	}
+	if (!(*pathes))
 		ft_error(PARSING, "Error : no valid solution", 1);
 	return (*pathes);
 }
@@ -46,10 +54,21 @@ static t_list	*read_path(t_list **pathes, ssize_t i)
 
 static t_list	*clear_pathes(t_list **pathes, ssize_t i)
 {
+	t_list	*buf[1];
+
 	if (!pathes)
 		ft_error(PARSING, "Error : cleansing called on void pathlist", 1);
 	i = 0;
-	return (NULL);
+	buf[0] = *pathes;
+	while (buf[0])
+	{
+		if (buf[0]->content)
+			ft_lstdel((t_list **)&(buf[0]->content), &ft_linkdel);
+		buf[0] = buf[0]->next;
+	}
+	ft_lstdel(pathes, &ft_linkdel);
+	ft_memdel((void **)pathes);
+	return (pathes && *pathes ? *pathes : NULL);
 }
 
 t_list			*ft_pathlist(t_cmd cmd, ssize_t i)

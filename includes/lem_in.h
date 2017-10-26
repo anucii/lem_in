@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/24 18:33:18 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/26 20:48:58 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,13 @@ typedef struct	s_calls
 	char		*callee;
 }				t_calls;
 
+typedef struct	s_matches
+{
+	ssize_t		ant_id;
+	ssize_t		path;
+	ssize_t		step;
+}				t_matches;
+
 t_options		*ft_options(char *pattern);
 void			ft_error(t_err errtype, char *msg, _Bool stop);
 void			get_input(void);
@@ -116,6 +123,10 @@ t_list			*ctrl_list(char *elmt);
 t_list			*get_path(void);
 t_list			*get_start(void);
 t_list			*get_end(void);
+
+_Bool			solver(t_list *roomlist, t_list *antlist, t_list *pathlist);
+_Bool			ft_itinerary(t_matches *path_ctrl, t_list *roomlist\
+		t_list *antlist, t_list *pathlist);
 
 t_list			*ft_lstdup(t_list *src);
 
