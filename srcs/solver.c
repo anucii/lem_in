@@ -6,20 +6,20 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 18:08:55 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/26 21:11:41 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/30 22:32:00 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	init_matches(t_matches *path_ctrl, t_list *roomlist, t_list *antlist,\
+static void	init_matches(t_matches *path_ctrl, t_list *antlist,\
 		t_list *pathlist)
 {
 	ssize_t	max[2];
 	ssize_t	i[3];
 	t_list	*buf;
 
-	if (!(path_ctrl, roomlist, antlist, pathlist))
+	if (!(path_ctrl && antlist && pathlist))
 		ft_error(PARSING, "Error : pathes/rooms/ants not defined", 1);
 	max[0] = ft_lstlen(antlist);
 	path_ctrl[max[0]] = (t_matches){-1, -1, -1};
@@ -37,17 +37,17 @@ static void	init_matches(t_matches *path_ctrl, t_list *roomlist, t_list *antlist
 		path_ctrl[i[0]] = (t_matches){i[0] + 1, i[0] % i[1], 0}; //first ant idx = 1
 }
 
-_Bool		solver(t_list *roomlist, t_list *antlist, t_list *pathlist)
+_Bool		solver(t_list *antlist, t_list *pathlist)
 {
 	t_matches	*path_ctrl;
 	ssize_t		size;
 
-	if (!(roomlist && antlist && pathlist))
+	if (!(antlist && pathlist))
 		ft_error(PARSING, "Error : pathes/rooms/ants not defined", 1);
 	size = 1 + ft_lstlen(antlist);
 	if ((path_ctrl = (t_matches *)ft_memalloc(size)))
-		init_matches(path_ctrl, roomlist, antlist, pathlist);
+		init_matches(path_ctrl, antlist, pathlist);
 	else
 		ft_error(PARSING, "Error : roadmap control structure alloc failure", 1);
-	return (ft_itinerary(path_ctrl, roomlist, antlist, pathlist));
+	return (ft_itinerary(&path_ctrl, antlist, pathlist));
 }

@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 20:45:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/26 21:59:38 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/30 23:51:44 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static _Bool	is_finished(t_list *antlist)
 {
 	t_room	*endroom;
 	t_list 	*buf;
+	t_room	*comp;
 
 	if (!antlist)
 	{
@@ -27,30 +28,12 @@ static _Bool	is_finished(t_list *antlist)
 	buf = antlist;
 	while (buf)
 	{
-		if (ft_strcmp(((t_ant *)buf->content)->pos->key, endroom->key))
+		if (!(buf->content && (comp = ((t_ant *)buf->content)->pos))\
+				|| (ft_strcmp(comp->key, endroom->key)))
 			return (0);
 		buf = buf->next;
 	}
 	return (1);
-}
-
-static void		move_ants(t_matches *path_ctrl, t_list *roomlist,\
-		t_list *antlist, t_list *pathlist)
-{
-	t_list	*buf[1];
-	ssize_t	i;
-
-	if (!())
-		ft_error(PARSING, "", 1);
-	i = -1;
-	buf[0] = pathlist;
-	while (++i < )
-		buf[0] = buf[0]->next;
-	buf[] = antlist;
-	while (buf[] && )
-	{
-		buf[] = buf[]->next;
-	}
 }
 
 static _Bool	print_moves(t_list *antlist)
@@ -59,7 +42,7 @@ static _Bool	print_moves(t_list *antlist)
 	_Bool	nl;
 
 	if (!antlist)
-		ft_error(PARSING,"Error : no list of ants to print" ,1);
+		ft_error(PARSING,"Error : no list of ants to print", 1);
 	buf = antlist;
 	nl = 0;
 	while (buf)
@@ -68,6 +51,7 @@ static _Bool	print_moves(t_list *antlist)
 		{
 			ft_printf("L%zu-%s ", ((t_ant *)buf->content)->id,\
 					((t_ant *)buf->content)->pos->key);
+			((t_ant *)buf->content)->display = 0;
 			nl = 1;
 		}
 		buf = buf->next;
@@ -77,19 +61,20 @@ static _Bool	print_moves(t_list *antlist)
 	return (nl);
 }
 
-_Bool			ft_initinerary(t_matches *path_ctrl, t_list *roomlist,\
-		t_list *antlist, t_list *pathlist)
+_Bool			ft_itinerary(t_matches **path_ctrl,	t_list *antlist,\
+		t_list *pathlist)
 {
 	_Bool	print;
 
-	if (!(path_ctrl && roomlist && antlist && pathlist))
+	if (!(path_ctrl && *path_ctrl && antlist && pathlist))
 		ft_error(PARSING, "Error : missing pointers to solve the map", 1);
 	ft_putendl("");
 	print = 0;
 	while (!is_finished(antlist)) //carefully scrutinize risks of infinite loops
 	{
-		move_ants(path_ctrl, roomlist, antlist, pathlist);
+		move_ants(*path_ctrl, antlist, pathlist);
 		print |= print_moves(antlist);
 	}
+	//TODO : free the path_ctrl
 	return (print);
 }

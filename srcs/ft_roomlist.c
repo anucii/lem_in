@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 13:53:26 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/13 19:20:23 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/10/30 23:44:55 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static t_list	*ft_readlist(t_list **roomlist, char *key)
 	else
 	{
 		buf = *roomlist;
-		while (buf && ft_strcmp(((t_room *)(buf->content))->key, key))
+		while (buf && buf->content && ft_strcmp(((t_room *)(buf->content))\
+					->key, key))
 			buf = buf->next;
 		return (buf);
 	}
