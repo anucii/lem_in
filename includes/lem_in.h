@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/11/01 18:43:17 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 20:20:16 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,9 @@ _Bool			ft_itinerary(t_matches **path_ctrl, t_list *antlist,\
 		t_list *pathlist);
 void			move_ants(t_matches *path_ctrl,	t_list *pathlist);
 ssize_t			ft_endcount(_Bool add);
+
+_Bool			has_shortcut(t_list *pathlist);
+void			move_all(void);
 
 t_list			*ft_lstdup(t_list *src);
 

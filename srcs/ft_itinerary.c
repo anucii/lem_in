@@ -6,35 +6,11 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 20:45:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/11/01 19:30:46 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 20:20:00 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-/*
-static _Bool	is_finished(t_list *antlist)
-{
-	t_room	*endroom;
-	t_list 	*buf;
-	t_room	*comp;
-
-	if (!antlist)
-	{
-		ft_error(PARSING, "DBG : no antlist to test", 0);//DBG
-		return (0);
-	}
-	if (!(endroom = (t_room *)(get_end()->content)))
-		ft_error(PARSING, "Error : no access to endroom", 1);
-	buf = antlist;
-	while (buf)
-	{
-		if (!(buf->content && (comp = ((t_ant *)buf->content)->pos))\
-				|| (ft_strcmp(comp->key, endroom->key)))
-			return (0);
-		buf = buf->next;
-	}
-	return (1);
-}*/
 
 static _Bool	print_moves(t_list *antlist)
 {
@@ -81,10 +57,12 @@ _Bool			ft_itinerary(t_matches **path_ctrl,	t_list *antlist,\
 	print = 0;
 	if ((ant_max = ft_lstlen(antlist)) == -1)
 		ft_error(PARSING, "Error : incorrect antlist length", 1);
-	//while (!is_finished(antlist)) //carefully scrutinize risks of infinite loops
 	while (ft_endcount(0) < ft_lstlen(antlist))
 	{
-		move_ants(*path_ctrl, pathlist);
+		if (has_shortcut(pathlist))
+			move_all();
+		else
+			move_ants(*path_ctrl, pathlist);
 		print |= print_moves(antlist);
 	}
 	ft_memdel((void **)path_ctrl);
