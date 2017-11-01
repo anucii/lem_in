@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:04:17 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/16 15:47:00 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 22:30:21 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	tubes_initloop(t_list **roomlist, t_list *input)
 	{
 		if (!is_comment((char *)(input->content)) && !add_tube(roomlist,\
 					(char *)(input->content)))
-			ft_error(PARSING,"Warning : edges setting interrupted" , 0);
+			ft_error(PARSING, "Warning : edges setting interrupted", 0);
 		input = input->next;
 	}
 }

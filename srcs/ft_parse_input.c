@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 13:07:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/19 17:35:23 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 22:31:09 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static _Bool	parse_antline(char *s)
 	if (!(s && *s))
 		return (0);
 	i = *s == '+' ? 0 : -1;
-	while (ft_isdigit(s[++i]));
+	while (ft_isdigit(s[++i]))
+		;
 	if ((size_t)i < ft_strlen(s))
 	{
 		ft_error(PARSING, "File error : forbidden characters in first line",\
@@ -39,7 +40,7 @@ static _Bool	parse_antline(char *s)
 
 static _Bool	parse_map(char *s)
 {
-	static _Bool	switcher[2] = (_Bool [2]){0,0};
+	static _Bool	switcher[2] = (_Bool[2]){0, 0};
 	_Bool			check;
 
 	if (!(s && *s))
@@ -64,7 +65,7 @@ static _Bool	parse_map(char *s)
 	return (0);
 }
 
-_Bool	ft_parse_input(t_list **alst)
+_Bool			ft_parse_input(t_list **alst)
 {
 	static t_list	*buf;
 

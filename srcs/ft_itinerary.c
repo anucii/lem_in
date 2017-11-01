@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 20:45:47 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/11/01 20:20:00 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 22:18:23 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static _Bool	print_moves(t_list *antlist)
 	_Bool	nl;
 
 	if (!antlist)
-		ft_error(PARSING,"Error : no list of ants to print", 1);
+		ft_error(PARSING, "Error : no list of ants to print", 1);
 	buf = antlist;
 	nl = 0;
 	while (buf)
 	{
 		if (buf->content && ((t_ant *)buf->content)->display &&\
-			   	((t_ant *)buf->content)->pos->key)
+				((t_ant *)buf->content)->pos->key)
 		{
 			ft_printf("L%zu-%s ", ((t_ant *)buf->content)->id,\
 					((t_ant *)buf->content)->pos->key);
@@ -45,7 +45,7 @@ ssize_t			ft_endcount(_Bool add)
 	return (add ? ++ret : ret);
 }
 
-_Bool			ft_itinerary(t_matches **path_ctrl,	t_list *antlist,\
+_Bool			ft_itinerary(t_matches **path_ctrl, t_list *antlist, \
 		t_list *pathlist)
 {
 	_Bool	print;

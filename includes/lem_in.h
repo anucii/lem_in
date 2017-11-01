@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/11/01 20:20:16 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 22:32:11 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct	s_ant
 	_Bool		display;
 }				t_ant;
 
-typedef struct	s_func	
+typedef struct	s_func
 {
 	t_list		*(*monof)(t_list **);
 	t_list		*(*dualf)(t_list **, ssize_t);
@@ -127,7 +127,7 @@ t_list			*get_end(void);
 _Bool			solver(void);
 _Bool			ft_itinerary(t_matches **path_ctrl, t_list *antlist,\
 		t_list *pathlist);
-void			move_ants(t_matches *path_ctrl,	t_list *pathlist);
+void			move_ants(t_matches *path_ctrl, t_list *pathlist);
 ssize_t			ft_endcount(_Bool add);
 
 _Bool			has_shortcut(t_list *pathlist);

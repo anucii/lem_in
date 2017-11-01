@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 19:31:13 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/11/01 19:35:32 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 22:09:06 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,19 @@
 
 static t_list	*init_pathes(t_list **pathes, ssize_t i)
 {
-	t_list	*buf;
+	t_list	*buf[2];
 	t_list	*tmp;
 
 	if (!pathes)
 		return (NULL);
 	i = 0;
-	buf = NULL;
-	if (!(check_ends() && (buf = get_path())))
+	buf[0] = NULL;
+	if (!(check_ends() && (buf[0] = get_path())))
 		ft_error(PARSING, "Error : no valid solution to the given map", 1);
-	if (!(*pathes = ft_lstnew((void *)buf, sizeof(t_list))))
+	if (!(*pathes = ft_lstnew((void *)buf[0], sizeof(t_list))))
 		ft_error(SYSTEM, "Error : could not init solutions list", 1);
-	if (buf && buf->content)
-	{
-		ft_lstdelone((t_list **)&buf->content, &ft_linkdel);
-		ft_memdel(&buf->content);
-	}
-	ft_memdel((void **)&buf);
-	while ((buf = get_path()))
-	{
-		ft_lstappend(pathes, tmp = ft_lstnew((void *)buf, sizeof(t_list)));
-		ft_lstdelone((t_list **)&buf->content, &ft_linkdel);
-		ft_memdel(&buf->content);
-		ft_memdel((void **)&buf);
-	}
+	while ((buf[1] = get_path()))
+		ft_lstappend(pathes, tmp = ft_lstnew((void *)buf[1], sizeof(t_list)));
 	if (!(*pathes))
 		ft_error(PARSING, "Error : no valid solution", 1);
 	return (*pathes);

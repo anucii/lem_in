@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 20:28:28 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/04 14:46:17 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 21:07:15 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,22 @@ static void	err_parsing(char *msg)
 	ft_putendl_fd(msg ? msg : "Error", 2);
 }
 
+static void	err_warning(_Bool stop)
+{
+	if (stop)
+		ft_putendl_fd("Error", 2);
+}
+
 void		ft_error(t_err errtype, char *msg, _Bool stop)
 {
 	static const t_errctrl	err_array[3] = (const t_errctrl[]){{SYSTEM,\
-		&err_sys}, {PARSING,&err_parsing}, {NOERR, NULL}};
+		&err_sys}, {PARSING, &err_parsing}, {NOERR, NULL}};
 	t_options				*options;
 	ssize_t					i;
 
 	i = -1;
 	if (!((options = ft_options(NULL))->fail_report))
-		ft_putendl_fd("Error", 2);
+		err_warning(stop);
 	else
 	{
 		while (err_array[++i].errtype != NOERR)

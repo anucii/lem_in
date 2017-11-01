@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 17:56:10 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/16 16:10:26 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 22:13:30 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static void	room_init(t_room *ptr, t_flag status)
 {
 	if (ptr)
-		*ptr = (t_room){NULL, 1, status, {0,0}, 0, NULL};
+		*ptr = (t_room){NULL, 1, status, {0, 0}, 0, NULL};
 }
 
-_Bool	is_duplicate(t_list *room)
+_Bool		is_duplicate(t_list *room)
 {
 	t_list	*buf;
 	t_room	*comp;
@@ -41,7 +41,7 @@ _Bool	is_duplicate(t_list *room)
 	return (0);
 }
 
-t_list	*get_room(char *line, t_flag status)
+t_list		*get_room(char *line, t_flag status)
 {
 	t_list	*ret;
 	t_room	room;
@@ -65,7 +65,7 @@ t_list	*get_room(char *line, t_flag status)
 		return (ret);
 }
 
-_Bool	add_room(t_list **roomlist, char *line, t_flag status)
+_Bool		add_room(t_list **roomlist, char *line, t_flag status)
 {
 	if (!(roomlist && line && *line))
 		return (0);

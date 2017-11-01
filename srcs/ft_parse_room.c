@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:43:25 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/19 17:35:29 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 22:23:53 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ static _Bool	check_coord(char *s)
 
 	if (!(s && is_room(s)))
 		return (0);
-	i = -1;
+	i = 0;
 	j[0] = 3;
 	stab = ft_strsplit_blanks(s);
-	while (stab[++i]);
+	while (stab[i])
+		++i;
 	while (--i && --(j[0]))
 	{
 		j[1] = 1 + (ssize_t)ft_strlen(stab[i]);
@@ -39,16 +40,17 @@ static _Bool	check_coord(char *s)
 	return (1);
 }
 
-_Bool	is_room(char *s)
+_Bool			is_room(char *s)
 {
 	char	**stab;
 	ssize_t	i;
 
 	if (!(s && *s) || is_tube(s))
 		return (0);
-	i = -1;
+	i = 0;
 	stab = ft_strsplit_blanks(s);
-	while (stab[++i]); //nb : i stops on index of null slot
+	while (stab[i])
+		++i;
 	ft_stabdel(&stab);
 	if (i != 3)
 		ft_error(PARSING, "Warning : room definition hasn't 3 arguments",\
@@ -56,7 +58,7 @@ _Bool	is_room(char *s)
 	return (i < 3 ? 0 : 1);
 }
 
-_Bool	check_room(char *s)
+_Bool			check_room(char *s)
 {
 	if (!(s && is_room(s)))
 		return (0);

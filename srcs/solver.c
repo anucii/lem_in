@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 18:08:55 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/11/01 17:02:34 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 22:30:35 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	init_matches(t_matches *path_ctrl, t_list *antlist,\
 		buf = buf->next;
 	}
 	while (++i[0] < max[0])
-		path_ctrl[i[0]] = (t_matches){i[0] + 1, i[0] % i[1], 0}; //first ant idx = 1
+		path_ctrl[i[0]] = (t_matches){i[0] + 1, i[0] % i[1], 0};
 }
 
 _Bool		solver(void)
