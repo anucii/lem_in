@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 18:08:55 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/30 22:32:00 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 17:02:34 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,19 @@ static void	init_matches(t_matches *path_ctrl, t_list *antlist,\
 		path_ctrl[i[0]] = (t_matches){i[0] + 1, i[0] % i[1], 0}; //first ant idx = 1
 }
 
-_Bool		solver(t_list *antlist, t_list *pathlist)
+_Bool		solver(void)
 {
+	t_list		*antlist;
+	t_list		*pathlist;
 	t_matches	*path_ctrl;
 	ssize_t		size;
 
+	antlist = ft_antlist(READ, 1);
+	pathlist = ft_pathlist(READ, 0);
 	if (!(antlist && pathlist))
 		ft_error(PARSING, "Error : pathes/rooms/ants not defined", 1);
 	size = 1 + ft_lstlen(antlist);
-	if ((path_ctrl = (t_matches *)ft_memalloc(size)))
+	if ((path_ctrl = (t_matches *)ft_memalloc(size * sizeof(t_matches))))
 		init_matches(path_ctrl, antlist, pathlist);
 	else
 		ft_error(PARSING, "Error : roadmap control structure alloc failure", 1);

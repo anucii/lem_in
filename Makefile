@@ -6,7 +6,7 @@
 #    By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/29 20:04:31 by jdaufin           #+#    #+#              #
-#    Updated: 2017/10/30 22:32:39 by jdaufin          ###   ########.fr        #
+#    Updated: 2017/11/01 18:25:32 by jdaufin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 CC = gcc
 FLAGS = -Wall -Wextra -Werror -g
 
-NAME = lem_in
+NAME = lem-in
 TEST = t_input
 
 TEST_DIR = tests/
@@ -34,16 +34,26 @@ SRC_DIR = srcs/
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(RDX)))
 OBJ_DIR = builts/
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(RDX)))
+
+MAIN = exec_lem_in
+MAIN_SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(MAIN)))
+MAIN_OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(MAIN)))
+
 HDR_DIR = includes/
 FT_DIR = libft/
 FT_HDR = $(addprefix $(FT_DIR), includes/)
 PRINTF_DIR = ft_printf/
 PRINTF_HDR = $(addprefix $(PRINTF_DIR), includes/)
 
-#all : $(NAME)
-all : $(TEST)
+all : $(NAME) $(TEST)
 
 $(TEST) : $(OBJ) $(TEST_OBJ) 
+	make -C $(FT_DIR)
+	make -C $(PRINTF_DIR)
+	$(CC) $(FLAGS) $^ -I $(HDR_DIR) -I $(FT_HDR) -I $(PRINTF_HDR)\
+		-L $(FT_DIR) -lft -L $(PRINTF_DIR) -lftprintf -o $@
+
+$(NAME) : $(OBJ) $(MAIN_OBJ)
 	make -C $(FT_DIR)
 	make -C $(PRINTF_DIR)
 	$(CC) $(FLAGS) $^ -I $(HDR_DIR) -I $(FT_HDR) -I $(PRINTF_HDR)\

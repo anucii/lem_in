@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 20:05:42 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/31 00:13:25 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 18:43:17 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,13 @@ t_list			*get_path(void);
 t_list			*get_start(void);
 t_list			*get_end(void);
 
-_Bool			solver(t_list *antlist, t_list *pathlist);
+_Bool			solver(void);
 _Bool			ft_itinerary(t_matches **path_ctrl, t_list *antlist,\
 		t_list *pathlist);
 void			move_ants(t_matches *path_ctrl,	t_list *pathlist);
+ssize_t			ft_endcount(_Bool add);
 
 t_list			*ft_lstdup(t_list *src);
 
-//t_list			*ft_pathlist(t_cmd cmd, ssize_t i);
-
+void			exec_lem_in(void);
 #endif

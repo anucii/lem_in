@@ -152,16 +152,20 @@ int		main(int ac, char **av)
 	ft_printf("Has roomlist exactly one start and end ?\n%s\n",\
 			check_ends() ? "Yes": "No");
 	t_pathes();
-	solver(ft_antlist(READ, 1), ft_pathlist(READ, 0));
+	solver();
+	//solver(ft_antlist(READ, 1), ft_pathlist(READ, 0));
+	
 	if (!(ft_antlist(CLEAR, -1)))
 		ft_putendl("Anthill cleared");
 	if (!(ft_roomlist(CLEAR, NULL)))
 		ft_putendl("Roomlist cleared");
 	//if (!(ft_pathlist(CLEAR, -1)))
 	//	ft_putendl("Pathlist cleared");
+	
 	store_input(CLEAR);
 
-/*	while (1)
+	/*
+	while (1);
 		wait(&waiter);
 */		
 	return (0);

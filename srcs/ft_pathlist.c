@@ -6,7 +6,7 @@
 /*   By: jdaufin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 19:31:13 by jdaufin           #+#    #+#             */
-/*   Updated: 2017/10/26 17:40:03 by jdaufin          ###   ########.fr       */
+/*   Updated: 2017/11/01 19:35:32 by jdaufin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,16 @@ static t_list	*init_pathes(t_list **pathes, ssize_t i)
 		ft_error(PARSING, "Error : no valid solution to the given map", 1);
 	if (!(*pathes = ft_lstnew((void *)buf, sizeof(t_list))))
 		ft_error(SYSTEM, "Error : could not init solutions list", 1);
-	if (buf)
+	if (buf && buf->content)
+	{
+		ft_lstdelone((t_list **)&buf->content, &ft_linkdel);
 		ft_memdel(&buf->content);
+	}
 	ft_memdel((void **)&buf);
 	while ((buf = get_path()))
 	{
 		ft_lstappend(pathes, tmp = ft_lstnew((void *)buf, sizeof(t_list)));
+		ft_lstdelone((t_list **)&buf->content, &ft_linkdel);
 		ft_memdel(&buf->content);
 		ft_memdel((void **)&buf);
 	}
