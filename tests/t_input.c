@@ -75,7 +75,7 @@ void	t_rooms(void)
 {
 	t_list	*roomlist;
 	ssize_t	i = -1;
-	char 	*user[6] = (char *[]){"home", "friend", "luans", "elsewhere",\
+	char 	*user[6] = {"home", "friend", "luans", "elsewhere",\
 		"all" , NULL};
 
 	ft_roomlist(INIT, NULL);

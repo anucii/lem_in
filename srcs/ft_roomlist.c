@@ -69,8 +69,8 @@ static t_list	*clear_rooms(t_list **roomlist, char *key)
 
 	if (!roomlist)
 		return (NULL);
-	key = NULL;
 	buf = *roomlist;
+	key = key ? NULL : key;
 	while (buf)
 	{
 		if (((t_room *)(buf->content))->key)

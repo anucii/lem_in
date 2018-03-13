@@ -19,7 +19,7 @@ static t_list	*init_pathes(t_list **pathes, ssize_t i)
 
 	if (!pathes)
 		return (NULL);
-	i = 0;
+	i = i ? 0 : i;
 	buf[0] = NULL;
 	if (!(check_ends() && (buf[0] = get_path())))
 		ft_error(PARSING, "Error : no valid solution to the given map", 1);
@@ -51,7 +51,7 @@ static t_list	*clear_pathes(t_list **pathes, ssize_t i)
 
 	if (!pathes)
 		ft_error(PARSING, "Error : cleansing called on void pathlist", 1);
-	i = 0;
+	i = i ? 0 : i;
 	buf[0] = *pathes;
 	while (buf[0])
 	{
